@@ -25,7 +25,7 @@ public class StudentController {
     }
 
     @GetMapping("/student")
-    public Student getStudent(@RequestParam Integer id) {
+    public Student getStudent(@RequestParam String id) {
 
 
             return studentService.getById(id);
@@ -38,7 +38,7 @@ public class StudentController {
 
     }
     @PostMapping("/student/addClass")
-    public ResponseEntity<String> addClassToStudent(@RequestParam Integer studentId, @RequestParam Integer classId) {
+    public ResponseEntity<String> addClassToStudent(@RequestParam String studentId, @RequestParam Integer classId) {
         Class classToAdd = classService.getById(classId);
         if (classToAdd != null) {
             studentService.addClassToStudent(studentId, classToAdd);

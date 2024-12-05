@@ -29,7 +29,7 @@ public class UserController {
 }
 
     @GetMapping("/user")
-    public User getUser(@RequestParam Integer id){
+    public User getUser(@RequestParam String id){
 
 
         return userService.getUserById(id);
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user")
-    public void delUser(@RequestParam Integer id){
+    public void delUser(@RequestParam String id){
         userService.deleteUser(id);
     }
 

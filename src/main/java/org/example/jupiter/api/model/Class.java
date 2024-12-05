@@ -72,7 +72,7 @@ public class Class {
         this.students = students;
     }
     @JsonProperty("studentIds")
-    public Set<Integer> getStudentIds() {
+    public Set<String> getStudentIds() {
         return students.stream().map(Student::getId).collect(Collectors.toSet());
     }
 

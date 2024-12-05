@@ -26,12 +26,12 @@ public class StudentService extends UserService {
     public Student addstudent(Student student) {
         return studentRepository.save(student);
     }
-    public Student getById(Integer id) {
+    public Student getById(String id) {
         return studentRepository.findById(id).orElse(null);
     }
 
 
-    public void addClassToStudent(Integer studentId, Class classToAdd) {
+    public void addClassToStudent(String studentId, Class classToAdd) {
         Optional<Student> studentOpt = studentRepository.findById(studentId);
         if (studentOpt.isPresent()) {
             Student student = studentOpt.get();
