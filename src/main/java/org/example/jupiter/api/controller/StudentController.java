@@ -32,8 +32,8 @@ public class StudentController {
     }
 
     @PostMapping("/student")
-    public ResponseEntity<String> addstudent(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String semester){
-        studentService.addstudent(new Student(firstName, lastName, email, semester));
+    public ResponseEntity<String> addstudent(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String semester, @RequestParam String password) {
+        studentService.addstudent(new Student(firstName, lastName, email, semester,password));
         return ResponseEntity.ok("");
 
     }
