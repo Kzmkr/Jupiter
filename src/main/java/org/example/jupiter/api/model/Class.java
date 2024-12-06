@@ -48,6 +48,10 @@ public class Class {
         this.id = id;
     }
 
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
     public String getName() {
         return name;
     }

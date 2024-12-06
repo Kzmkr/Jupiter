@@ -37,7 +37,7 @@ public class ClassController {
     }
 
 
-    @PostMapping("/class")
+    @PostMapping("/addClass")
     public void addClass(@RequestParam String name, @RequestParam String time, @RequestParam String day){ {
         classService.addstudent(new Class(name,time,day));
     }

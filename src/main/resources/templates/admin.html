@@ -38,6 +38,25 @@
     </div>
   </form>
 
+  <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-100">Add Class</h2>
+  <form id="addClassForm" class="bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="mb-4">
+      <label class="block text-gray-300">Class Name:</label>
+      <input type="text" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600 text-gray-300" required/>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-300">Class Time:</label>
+      <input type="text" name="time" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600 text-gray-300" required/>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-300">Day of Week:</label>
+      <input type="text" name="day" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600 text-gray-300" required/>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Add Class</button>
+    </div>
+  </form>
+
   <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-100">All Users</h2>
   <table class="min-w-full bg-gray-800 rounded-lg shadow-md">
     <thead>
@@ -50,15 +69,32 @@
     </thead>
     <tbody>
     <tr th:each="user : ${users}" class="text-center">
-      th:each="user : ${users}">
       <td>
         <a th:href="@{${user.role == 'STUDENT' ? '/student/' + user.id : '/user/' + user.id}}">
-          <span th:text="${user.id}"></span>
+          <span th:text="${user.id}" class="text-green-500"></span>
         </a>
       </td>
       <td class="py-2 px-4 border-b text-gray-100" th:text="${user.firstName}"></td>
       <td class="py-2 px-4 border-b text-gray-100" th:text="${user.lastName}"></td>
       <td class="py-2 px-4 border-b text-gray-100" th:text="${user.email}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-100">All Classes</h2>
+  <table class="min-w-full bg-gray-800 rounded-lg shadow-md">
+    <thead>
+    <tr>
+      <th class="py-2 px-4 border-b text-gray-100">Class Name</th>
+      <th class="py-2 px-4 border-b text-gray-100">Class Time</th>
+      <th class="py-2 px-4 border-b text-gray-100">Day of Week</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="class : ${classes}" class="text-center">
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${class.name}"></td>
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${class.time}"></td>
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${class.dayOfWeek}"></td>
     </tr>
     </tbody>
   </table>
@@ -88,6 +124,32 @@
             })
             .catch(error => {
               alert('Error adding user: ' + error.message);
+            });
+  });
+
+  document.getElementById('addClassForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+
+    const formData = new URLSearchParams(new FormData(this)).toString();
+
+    fetch('/addClass', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: formData
+    })
+            .then(response => {
+              if (response.ok) {
+                alert('Class added successfully!');
+                this.reset(); // Reset the form
+                location.reload(); // Reload the page to update the class list
+              } else {
+                return response.text().then(text => { throw new Error(text) });
+              }
+            })
+            .catch(error => {
+              alert('Error adding class: ' + error.message);
             });
   });
 </script>
