@@ -12,14 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+
+
 @RestController
-public class StudentController {
+public class StudentRestController {
 
     private final StudentService studentService;
     private final ClassService classService;
 
     @Autowired
-    public StudentController(StudentService studentService, ClassService classService) {
+    public StudentRestController(StudentService studentService, ClassService classService) {
         this.studentService = studentService;
         this.classService = classService;
     }
@@ -31,12 +33,22 @@ public class StudentController {
             return studentService.getById(id);
     }
 
+
     @PostMapping("/addStudent")
     public ResponseEntity<String> addstudent(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String semester, @RequestParam String password) {
         studentService.addStudent(new Student(firstName, lastName, email,password,"STUDENT"));
         return ResponseEntity.ok("");
 
     }
+
+
+    @PostMapping("/updateStudent")
+    public ResponseEntity<String> updateStudent(@RequestParam String id, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName, @RequestParam(required = false) String email, @RequestParam(required = false) String password, @RequestParam(required = false) String semester) {
+        studentService.updateStudent(id, firstName, lastName, email, password, semester);
+        return ResponseEntity.ok("Student updated successfully");
+    }
+
+
     @PostMapping("/student/addClass")
     public ResponseEntity<String> addClassToStudent(@RequestParam String studentId, @RequestParam Integer classId) {
         Class classToAdd = classService.getById(classId);
