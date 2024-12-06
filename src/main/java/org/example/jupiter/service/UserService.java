@@ -4,6 +4,7 @@ import org.example.jupiter.api.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 
 import org.example.jupiter.api.repository.UserRepository;
@@ -18,6 +19,7 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
 
     public  List<User> getAllUsers() {
         return userRepository.findAll();

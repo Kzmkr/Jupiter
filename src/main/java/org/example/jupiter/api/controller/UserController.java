@@ -47,8 +47,9 @@ public class UserController {
     public ResponseEntity<String> addUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password, @RequestParam String role) {
         if ("STUDENT".equalsIgnoreCase(role)) {
             studentService.addStudent(new Student(firstName, lastName, email, passwordEncoder.encode(password), role));
-        } else if("USER".equalsIgnoreCase(role)) {
-            userService.addUser(new User(firstName, lastName, email, passwordEncoder.encode(password), role));
+        } else if ("USER".equalsIgnoreCase(role)) {
+            User user = new User( firstName, lastName, email, passwordEncoder.encode(password), role);
+            userService.addUser(user);
         }
         return ResponseEntity.ok("User added successfully");
     }
