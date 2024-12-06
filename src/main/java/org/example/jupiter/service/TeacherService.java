@@ -30,7 +30,7 @@ public class TeacherService extends UserService {
         return teacherRepository.findById(id).orElse(null);
     }
 
-    public void updateTeacher(String id, String firstName, String lastName, String email, String password, String semester) {
+    public void updateTeacher(String id, String firstName, String lastName, String email, String password) {
         Teacher teacher = teacherRepository.findById(id).orElse(null);
         if (teacher != null) {
             if (firstName != null && !firstName.isEmpty()) {
