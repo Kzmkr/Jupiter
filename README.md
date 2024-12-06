@@ -8,9 +8,14 @@
 | Széplaki Szabolcs |G0HW1H  |    
 
 ## technology
-Spring Boot  
-H2  
-Maven  
+- Spring Boot  
+- H2  
+- Maven  
+- Heroku
+
+## CI-CD
+The project implements a CI-CD pipeline with [Heroku](https://neptun-4920afa32d9a.herokuapp.com/)
+the mean branch is automatically deployed and build.
 
 ## Program specification
 A félév második feléhez a követelmény egy beadandó feladat, amit csapatban kell elvégezni.
