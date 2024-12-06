@@ -21,6 +21,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             redirectUrl = "/admin";
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"))) {
             redirectUrl = "/user";
+        } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_STUDENT"))) {
+            String userId = authentication.getName(); // Assuming the username is the student ID
+            redirectUrl = "/student/" + userId;
         }
 
         response.sendRedirect(redirectUrl);
