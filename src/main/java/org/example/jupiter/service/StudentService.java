@@ -23,7 +23,7 @@ public class StudentService extends UserService {
         this.studentRepository = studentRepository;
         this.userRepository = userRepository;
     }
-    public Student addstudent(Student student) {
+    public Student addStudent(Student student) {
         return studentRepository.save(student);
     }
     public Student getById(String id) {

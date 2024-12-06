@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="dark">
+<head>
+  <title>Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+</head>
+<body class="bg-gray-900">
+<div class="container mx-auto p-8">
+  <h1 class="text-3xl font-bold mb-6 text-center text-gray-100">Admin Page</h1>
+
+  <h2 class="text-2xl font-semibold mb-4 text-gray-100">Add Student</h2>
+  <form id="addUserForm" class="bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="mb-4">
+      <label class="block text-gray-300">First Name:</label>
+      <input type="text" name="firstName" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600 text-gray-300" required/>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-300">Last Name:</label>
+      <input type="text" name="lastName" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600 text-gray-300" required/>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-300">Email:</label>
+      <input type="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600 text-gray-300" required/>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-300">Password:</label>
+      <input type="password" name="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600 text-gray-300" required/>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-300">Role:</label>
+      <select name="role" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 border-gray-600 text-gray-300" required>
+        <option value="USER">User</option>
+        <option value="STUDENT">Student</option>
+      </select>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Add User</button>
+    </div>
+  </form>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-100">All Users</h2>
+  <table class="min-w-full bg-gray-800 rounded-lg shadow-md">
+    <thead>
+    <tr>
+      <th class="py-2 px-4 border-b text-gray-100">ID</th>
+      <th class="py-2 px-4 border-b text-gray-100">First Name</th>
+      <th class="py-2 px-4 border-b text-gray-100">Last Name</th>
+      <th class="py-2 px-4 border-b text-gray-100">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}" class="text-center">
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.id}"></td>
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.firstName}"></td>
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.lastName}"></td>
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.email}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.getElementById('addUserForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+
+    const formData = new URLSearchParams(new FormData(this)).toString();
+
+    fetch('/addUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: formData
+    })
+            .then(response => {
+              if (response.ok) {
+                alert('User added successfully!');
+                this.reset(); // Reset the form
+                location.reload(); // Reload the page to update the user list
+              } else {
+                return response.text().then(text => { throw new Error(text) });
+              }
+            })
+            .catch(error => {
+              alert('Error adding user: ' + error.message);
+            });
+  });
+</script>
+</body>
+</html>

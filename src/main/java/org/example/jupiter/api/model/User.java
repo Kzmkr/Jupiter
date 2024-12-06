@@ -2,6 +2,8 @@ package org.example.jupiter.api.model;
 
 import jakarta.persistence.*;
 
+import java.util.Random;
+
 @Entity
 
 
@@ -10,8 +12,7 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
     @Column(name = "first_name")
@@ -32,12 +33,13 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, String role) {
+        this.id = generateRandomId();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.role = "USER";
+        this.role = role;
     }
 
     public String getId() {
@@ -86,6 +88,17 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    private String generateRandomId() {
+        int length = 5;
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder id = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            id.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return id.toString();
     }
 
     @Override

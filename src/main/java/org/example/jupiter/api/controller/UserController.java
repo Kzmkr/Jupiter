@@ -1,6 +1,8 @@
 package org.example.jupiter.api.controller;
 
+import org.example.jupiter.api.model.Student;
 import org.example.jupiter.api.model.User;
+import org.example.jupiter.service.StudentService;
 import org.example.jupiter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +19,13 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final StudentService studentService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService, PasswordEncoder passwordEncoder){
+    public UserController(UserService userService,StudentService studentService, PasswordEncoder passwordEncoder){
         this.userService = userService;
+        this.studentService = studentService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -40,10 +44,13 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<String> addUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password){
-        userService.addUser(new User(firstName, lastName, email,password));
-       return ResponseEntity.ok("");
-
+    public ResponseEntity<String> addUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password, @RequestParam String role) {
+        if ("STUDENT".equalsIgnoreCase(role)) {
+            studentService.addStudent(new Student(firstName, lastName, email, passwordEncoder.encode(password), role));
+        } else if("USER".equalsIgnoreCase(role)) {
+            userService.addUser(new User(firstName, lastName, email, passwordEncoder.encode(password), role));
+        }
+        return ResponseEntity.ok("User added successfully");
     }
 
     @DeleteMapping("/user")
