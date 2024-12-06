@@ -75,14 +75,14 @@
           <span th:text="${user.id}" class="text-green-500"></span>
         </a>
       </td>
-      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.firstName}"></td>
-      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.lastName}"></td>
-      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.email}"></td>
       <td>
         <a th:href="@{${user.role == 'TEACHER' ? '/teacher/' + user.id : '/user/' + user.id}}">
           <span th:text="${user.id}" class="text-green-500"></span>
         </a>
       </td>
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.firstName}"></td>
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.lastName}"></td>
+      <td class="py-2 px-4 border-b text-gray-100" th:text="${user.email}"></td>
     </tr>
     </tbody>
   </table>
