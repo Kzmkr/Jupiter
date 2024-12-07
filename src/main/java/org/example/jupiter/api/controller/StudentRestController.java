@@ -28,8 +28,6 @@ public class StudentRestController {
 
     @GetMapping("/student")
     public Student getStudent(@RequestParam String id) {
-
-
             return studentService.getById(id);
     }
 
@@ -58,6 +56,12 @@ public class StudentRestController {
         } else {
             return ResponseEntity.badRequest().body("Class not found");
         }
+    }
+
+    @DeleteMapping("/student")
+    public ResponseEntity<String> deleteStudent(@RequestParam String id) {
+        studentService.deleteUser(id);
+        return ResponseEntity.ok("Student deleted successfully");
     }
 
 

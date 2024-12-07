@@ -60,5 +60,11 @@ public class TeacherRestController {
         }
     }
 
+    @DeleteMapping("/teacher")
+    public ResponseEntity<String> deleteTeacher(@RequestParam String id) {
+        teacherService.deleteUser(id);
+        return ResponseEntity.ok("Teacher deleted successfully");
+    }
+
 
 }

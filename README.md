@@ -12,6 +12,7 @@
 - H2  
 - Maven  
 - Heroku
+- Swagger
 
 ## CI-CD
 The project implements a CI-CD pipeline with [Heroku](https://neptun-4920afa32d9a.herokuapp.com/)

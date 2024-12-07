@@ -55,11 +55,8 @@ public class UserController {
             User user = new User( firstName, lastName, email, passwordEncoder.encode(password), role);
             userService.addUser(user);
         }
-        if ("TEACHER".equalsIgnoreCase(role)) {
+        else if ("TEACHER".equalsIgnoreCase(role)) {
             teacherService.addTeacher(new Teacher(firstName, lastName, email, passwordEncoder.encode(password), role));
-        } else if ("USER".equalsIgnoreCase(role)) {
-            User user = new User( firstName, lastName, email, passwordEncoder.encode(password), role);
-            userService.addUser(user);
         }
         return ResponseEntity.ok("User added successfully");
     }
