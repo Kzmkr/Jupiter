@@ -61,6 +61,13 @@ public class UserController {
         return ResponseEntity.ok("User added successfully");
     }
 
+    @PutMapping("/updateUser")
+    public ResponseEntity<String> updateUser(@RequestParam String id, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName, @RequestParam(required = false) String email, @RequestParam(required = false) String password) {
+        userService.updateUser(id, firstName, lastName, email, password);
+        return ResponseEntity.ok("User updated successfully");
+    }
+
+
     @DeleteMapping("/user")
     public void delUser(@RequestParam String id){
         userService.deleteUser(id);

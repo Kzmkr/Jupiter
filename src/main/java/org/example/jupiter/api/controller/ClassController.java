@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,7 +35,27 @@ public class ClassController {
 
 
     @PostMapping("/addClass")
-    public void addClass(@RequestParam String name, @RequestParam String time, @RequestParam String day){ {
-        classService.addstudent(new Class(name,time,day));
+    public void addClass(@RequestParam String name, @RequestParam String time, @RequestParam String day) {
+        {
+            classService.addclass(new Class(name, time, day));
+        }
+
     }
-}}
+    @PutMapping("/updateClass")
+    public ResponseEntity<Class> updateClass(@RequestParam Integer id, @RequestParam String name) {
+        Class class_ = classService.getById(id);
+        if (class_ == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        class_.setName(name);
+        classService.addclass(class_);
+        return new ResponseEntity<>(class_, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/class")
+    public ResponseEntity<Void> deleteClass(@RequestParam Integer id) {
+        classService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+}
