@@ -22,7 +22,7 @@ public class ClassService {
         this.classRepository = classRepository;
     }
 
-    public Class addstudent(Class class_) {
+    public Class addclass(Class class_) {
         return classRepository.save(class_);
     }
 

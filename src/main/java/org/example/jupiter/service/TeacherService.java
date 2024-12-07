@@ -30,23 +30,14 @@ public class TeacherService extends UserService {
         return teacherRepository.findById(id).orElse(null);
     }
 
+
     public void updateTeacher(String id, String firstName, String lastName, String email, String password) {
+        super.updateUser(id, firstName, lastName, email, password);
         Teacher teacher = teacherRepository.findById(id).orElse(null);
         if (teacher != null) {
-            if (firstName != null && !firstName.isEmpty()) {
-                teacher.setFirstName(firstName);
-            }
-            if (lastName != null && !lastName.isEmpty()) {
-                teacher.setLastName(lastName);
-            }
-            if (email != null && !email.isEmpty()) {
-                teacher.setEmail(email);
-            }
-            if (password != null && !password.isEmpty()) {
-                teacher.setPassword(password);
-            }
             teacherRepository.save(teacher);
-        }}
+        }
+    }
 
 
     public void addClassToTeacher(String teacherId, Class classToAdd) {
