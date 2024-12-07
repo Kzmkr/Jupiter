@@ -31,26 +31,15 @@ public class StudentService extends UserService {
     }
 
     public void updateStudent(String id, String firstName, String lastName, String email, String password, String semester) {
+        super.updateUser(id, firstName, lastName, email, password);
         Student student = studentRepository.findById(id).orElse(null);
         if (student != null) {
-            if (firstName != null && !firstName.isEmpty()) {
-                student.setFirstName(firstName);
-            }
-            if (lastName != null && !lastName.isEmpty()) {
-                student.setLastName(lastName);
-            }
-            if (email != null && !email.isEmpty()) {
-                student.setEmail(email);
-            }
-            if (password != null && !password.isEmpty()) {
-                student.setPassword(password);
-            }
             if (semester != null && !semester.isEmpty()) {
                 student.setStudentsemester(semester);
             }
             studentRepository.save(student);
-        }}
-
+        }
+    }
 
     public void addClassToStudent(String studentId, Class classToAdd) {
         Optional<Student> studentOpt = studentRepository.findById(studentId);
