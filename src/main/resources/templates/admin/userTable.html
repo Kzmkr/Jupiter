@@ -1,0 +1,28 @@
+<!-- userTable.html -->
+<h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-100">All Users</h2>
+<table class="min-w-full bg-gray-800 rounded-lg shadow-md">
+    <thead>
+    <tr>
+        <th class="py-2 px-4 border-b text-gray-100">ID</th>
+        <th class="py-2 px-4 border-b text-gray-100">First Name</th>
+        <th class="py-2 px-4 border-b text-gray-100">Last Name</th>
+        <th class="py-2 px-4 border-b text-gray-100">Email</th>
+        <th class="py-2 px-4 border-b text-gray-100">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}" class="text-center">
+        <td class="py-2 px-4 border-b text-gray-100">
+            <span th:classappend="@{${user.role == 'STUDENT' ? 'text-green-500' :  'text-red-500'}}" th:text="${user.id}"></span>
+        </td>
+        <td class="py-2 px-4 border-b text-gray-100" th:text="${user.firstName}"></td>
+        <td class="py-2 px-4 border-b text-gray-100" th:text="${user.lastName}"></td>
+        <td class="py-2 px-4 border-b text-gray-100" th:text="${user.email}"></td>
+        <td class="py-2 px-4 border-b text-gray-100">
+            <a th:href="@{${user.role == 'STUDENT' ? '/student/' + user.id : '/teacher/' + user.id}}">
+                <span class="text-blue-500">Edit</span>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>

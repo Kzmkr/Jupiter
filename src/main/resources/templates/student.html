@@ -37,6 +37,26 @@
 
         <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Update</button>
     </form>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-100">Classes</h2>
+    <table class="min-w-full bg-gray-800 rounded-lg shadow-md">
+        <thead>
+        <tr>
+            <th class="py-2 px-4 border-b text-gray-100">Class ID</th>
+            <th class="py-2 px-4 border-b text-gray-100">Class Name</th>
+            <th class="py-2 px-4 border-b text-gray-100">Class Time</th>
+            <th class="py-2 px-4 border-b text-gray-100">Day of Week</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="class : ${student.classes}" class="text-center">
+            <td class="py-2 px-4 border-b text-gray-100" th:text="${class.id}"></td>
+            <td class="py-2 px-4 border-b text-gray-100" th:text="${class.name}"></td>
+            <td class="py-2 px-4 border-b text-gray-100" th:text="${class.time}"></td>
+            <td class="py-2 px-4 border-b text-gray-100" th:text="${class.dayOfWeek}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <script>
