@@ -1,12 +1,8 @@
 package org.example.jupiter.api.model;
 
 import jakarta.persistence.*;
-import org.example.jupiter.api.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Random;
-
-
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -16,24 +12,23 @@ public class User {
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     private String role;
 
-
     public User() {
-
+        this.id = generateRandomId();
     }
 
     public User(String firstName, String lastName, String email, String password, String role) {
@@ -93,25 +88,21 @@ public class User {
         this.role = role;
     }
 
-
-
-
     private String generateRandomId() {
-
-        int length = 5;
+        int length = 8;
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random = new Random();
         StringBuilder id = new StringBuilder(length);
-            for (int i = 0; i < length; i++) {
-                id.append(characters.charAt(random.nextInt(characters.length())));
-            }
 
+        for (int i = 0; i < length; i++) {
+            id.append(characters.charAt(random.nextInt(characters.length())));
+        }
 
         return id.toString();
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+        return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", role=" + role + "]";
     }
 }
