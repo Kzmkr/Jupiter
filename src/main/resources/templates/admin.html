@@ -9,12 +9,11 @@
 <div th:include="header"></div>
 <div class="container mx-auto p-8">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-100">Admin Page</h1>
-
     <div th:include="admin/addUserForm"></div>
     <div th:include="admin/addClassForm"></div>
     <div th:include="admin/addClassToStudentForm"></div>
-    <div th:include="admin/editUserForm"></div>
-    <div th:include="admin/editClassForm"></div>
+    <div th:include="admin/userTable"></div>
+    <div th:include="admin/classTable"></div>
 </div>
 </body>
 </html>
