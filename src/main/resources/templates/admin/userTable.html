@@ -22,8 +22,7 @@
                 <span class="text-blue-500 hover:underline">Edit</span>
             </a>
             <span class="mx-2">|</span>
-
-            <a href="#" class="text-red-500 hover:underline delete-user" th:attr="data-user-id=${user.id}">
+            <a href="#" class="text-red-500 hover:underline" onclick="deleteUser('${user.id}', this); return false;">
                 Delete
             </a>
         </td>
@@ -31,21 +30,9 @@
     </tbody>
 </table>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.delete-user').forEach(function(element) {
-            element.addEventListener('click', function(event) {
-                event.preventDefault();
-                const userId = this.getAttribute('data-user-id');
-                deleteUser(userId, this);
-            });
-        });
-    });
-
     function deleteUser(userId, element) {
         if (confirm('Are you sure you want to delete this user?')) {
-            const params = new URLSearchParams({ id: userId });
-            const requestUrl = `/user?${params.toString()}`;
-            fetch(requestUrl, {
+            fetch(`/user?id=${encodeURIComponent(userId)}`, {
                 method: 'DELETE'
             })
                 .then(response => {
