@@ -2,18 +2,15 @@ package org.example.jupiter.api.controller;
 
 import org.example.jupiter.api.model.Class;
 import org.example.jupiter.service.ClassService;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-
-@RestController
+@Controller
 public class ClassController {
+
     private final ClassService classService;
 
     @Autowired
@@ -21,41 +18,10 @@ public class ClassController {
         this.classService = classService;
     }
 
-    @GetMapping("/class")
-    public Class getClass(@RequestParam Integer id) {
-
-        return classService.getById(id);
-    }
-
-    @GetMapping("/classes")
-    public ResponseEntity<List<Class>> getClasses() {
-        List<Class> class_ = classService.getAll();
-        return new ResponseEntity<>(class_, HttpStatus.OK);
-    }
-
-
-    @PostMapping("/addClass")
-    public void addClass(@RequestParam String name, @RequestParam String time, @RequestParam String day) {
-        {
-            classService.addclass(new Class(name, time, day));
-        }
-
-    }
-    @PutMapping("/updateClass")
-    public ResponseEntity<Class> updateClass(@RequestParam Integer id, @RequestParam String name) {
+    @GetMapping("/class/{id}")
+    public String getClassProfile(@PathVariable Integer id, Model model) {
         Class class_ = classService.getById(id);
-        if (class_ == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        class_.setName(name);
-        classService.addclass(class_);
-        return new ResponseEntity<>(class_, HttpStatus.OK);
+        model.addAttribute("class", class_);
+        return "class";
     }
-
-    @DeleteMapping("/class")
-    public ResponseEntity<Void> deleteClass(@RequestParam Integer id) {
-        classService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
 }
