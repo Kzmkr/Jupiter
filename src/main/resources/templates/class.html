@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
 </head>
 <body class="bg-gray-900 flex items-center justify-center min-h-screen">
+<div th:include="header"></div>
 <div class="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
     <h1 class="text-2xl font-bold mb-6 text-center text-gray-100">Class Details</h1>
     <form id="updateClassForm" th:action="@{/updateClass}" th:object="${class}" method="post">

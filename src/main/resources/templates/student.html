@@ -5,7 +5,9 @@
     <link rel="icon" type="image/x-icon" href="https://icon-icons.com/downloadimage.php?id=156875&root=2613/ICO/512/&file=astronomy_jupiter_galaxy_planet_space_system_universe_icon_156875.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
 </head>
-<body class="bg-gray-900 flex items-center justify-center min-h-screen">
+<body class="bg-gray-900">
+<div th:include="header" class="w-full"></div>
+<div  class="bg-gray-900 flex items-center justify-center min-h-screen">
 <div class="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md">
     <h1 class="text-2xl font-bold mb-6 text-center text-gray-100">Student Profile</h1>
     <form id="updateStudentForm" th:action="@{/updateStudent}" th:object="${student}" method="post">
@@ -90,5 +92,6 @@
             });
     });
 </script>
+</div>
 </body>
 </html>
